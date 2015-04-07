@@ -2,11 +2,11 @@ package yuriitsap.example.com.customlistview;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -20,6 +20,11 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         mListView = (CustomListView) findViewById(R.id.list_view);
         mListView.setBaseAdapter(new CustomAdapter());
+    }
+
+    public void showPosition(View view) {
+        Toast.makeText(MainActivity.this, "view bottom = " + view.getBottom(), Toast.LENGTH_LONG)
+                .show();
     }
 
     private class CustomAdapter extends BaseAdapter {
@@ -41,12 +46,10 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Log.e("TAG", "convertView " + (convertView == null ? "null" : convertView.toString()));
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.list_item, parent, false);
             }
             ((Button) convertView).setText(((Button) convertView).getText() + " " + position);
-
             return convertView;
         }
     }
